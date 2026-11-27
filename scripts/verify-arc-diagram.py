@@ -70,7 +70,7 @@ claims none of theirs.
 
 Usage:
     python3 scripts/verify-arc-diagram.py --all
-    python3 scripts/verify-arc-diagram.py skills/diagram-design/assets/example-arc-diagram.html
+    python3 scripts/verify-arc-diagram.py skills/diagrams-design-quind/assets/example-arc-diagram.html
 
 Exit: 0 clean, 1 findings, 2 usage.
 """
@@ -87,7 +87,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ASSET_DIR = ROOT / "skills/diagram-design/assets"
+ASSET_DIR = ROOT / "skills/diagrams-design-quind/assets"
 
 CIRCLE_RE = re.compile(r"<circle\b(?P<attrs>[^>]*?)/?>", re.IGNORECASE)
 PATH_RE = re.compile(r"<path\b(?P<attrs>[^>]*?)/?>", re.IGNORECASE)
@@ -135,7 +135,7 @@ LITERAL_PAINT_RE = re.compile(
 UNREADABLE_PAINT = {"currentcolor", "inherit", "initial", "unset", "revert", "context-stroke"}
 # The shipped accent on the light and dark skins; a custom skin adds its own
 # --color-accent, read from the document.
-DEFAULT_ACCENTS = {(191, 69, 32), (240, 138, 89)}
+DEFAULT_ACCENTS = {(204, 59, 16), (255, 138, 92)}
 COLOR_ACCENT_RE = re.compile(r"--color-accent\s*:\s*(?P<value>[^;}]+)", re.IGNORECASE)
 HEX_RE = re.compile(r"#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})", re.IGNORECASE)
 RGB_RE = re.compile(r"rgba?\(\s*([\d.]+)\s*[,\s]\s*([\d.]+)\s*[,\s]\s*([\d.]+)", re.IGNORECASE)

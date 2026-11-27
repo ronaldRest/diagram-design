@@ -70,7 +70,7 @@ Because the oracle is pixels, CI must pin Playwright and its bundled Chromium
 rather than taking whatever is newest; see ``.github/workflows/ci.yml``.
 
     python3 scripts/lint-render.py --all
-    python3 scripts/lint-render.py skills/diagram-design/assets/example-venn.html
+    python3 scripts/lint-render.py skills/diagrams-design-quind/assets/example-venn.html
     python3 scripts/lint-render.py --self-test   # proves every check still fires
 
 Requires Playwright (same dev dependency the PNG export uses):
@@ -91,8 +91,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
-ASSET_DIR = ROOT / "skills/diagram-design/assets"
-EXPORT_PNG = ROOT / "skills/diagram-design/scripts/export_png.py"
+ASSET_DIR = ROOT / "skills/diagrams-design-quind/assets"
+EXPORT_PNG = ROOT / "skills/diagrams-design-quind/scripts/export_png.py"
 
 VIEWPORT = {"width": 1600, "height": 1000}
 TOLERANCE = 1.0  # px of slop before page overflow counts, absorbs subpixel layout
@@ -1127,7 +1127,7 @@ def template_mobile_failures(context, template_paths=None):
     return failures
 
 
-OUTPUT_SPEC_DOC = ROOT / "skills/diagram-design/references/output-spec.md"
+OUTPUT_SPEC_DOC = ROOT / "skills/diagrams-design-quind/references/output-spec.md"
 
 
 def output_spec_widest_preset():
@@ -1529,13 +1529,13 @@ def self_test(context):
         failures.append("template-export: packaged PNG renderer is missing")
     else:
         wide_page = (
-            '<!DOCTYPE html><html><style>body{{margin:0;padding:32px;background:#f5f5f5}}'
+            '<!DOCTYPE html><html><style>body{{margin:0;padding:32px;background:#ffffff}}'
             '.frame{{max-width:1200px;width:100%}}.diagram-container{{width:100%;overflow-x:auto}}'
             'svg{{width:100%;min-width:' + str(WIDE_PRESET[0]) + 'px;display:block}}</style>'
             '<body><div class="frame"><div class="diagram-container"{clip}>'
             '<svg viewBox="0 0 ' + f"{WIDE_PRESET[0]} {WIDE_PRESET[1]}" + '" '
             'xmlns="http://www.w3.org/2000/svg"><rect width="' + str(WIDE_PRESET[0])
-            + '" height="' + str(WIDE_PRESET[1]) + '" fill="#f5f5f5"/>'
+            + '" height="' + str(WIDE_PRESET[1]) + '" fill="#ffffff"/>'
             + EXPORT_PROBE_MARKUP
             + "</svg></div></div></body></html>"
         )

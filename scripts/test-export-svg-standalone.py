@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Regression tests for standalone SVG export (CSS carry + defs ID namespace).
 
-Covers the packaged helper at skills/diagram-design/scripts/export_svg.py and
+Covers the packaged helper at skills/diagrams-design-quind/scripts/export_svg.py and
 the contract documented in references/export.md (issues #202 and #203).
 """
 
@@ -21,9 +21,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parent.parent
-HELPER = ROOT / "skills/diagram-design/scripts/export_svg.py"
-EXPORT_MD = ROOT / "skills/diagram-design/references/export.md"
-ASSETS = ROOT / "skills/diagram-design/assets"
+HELPER = ROOT / "skills/diagrams-design-quind/scripts/export_svg.py"
+EXPORT_MD = ROOT / "skills/diagrams-design-quind/references/export.md"
+ASSETS = ROOT / "skills/diagrams-design-quind/assets"
 
 # Shipped assets the helper refuses (loudly). Empty since #407: nested icon
 # <svg> elements and `--` inside comments both export. Keep this list exact so
@@ -445,8 +445,8 @@ class ExportSvgStandaloneTests(unittest.TestCase):
         for value, paint, opacity in (
             ("rgba(300,0,0,0.5)", "#ff0000", "0.5"),
             ("rgba(-12,300,10,0.5)", "#00ff0a", "0.5"),
-            ("rgba(45,49,66,-0.1)", "#2d3142", "0"),
-            ("rgba(45,49,66,1.5)", "#2d3142", "1"),
+            ("rgba(14,25,32,-0.1)", "#0e1920", "0"),
+            ("rgba(14,25,32,1.5)", "#0e1920", "1"),
         ):
             with self.subTest(value=value):
                 normalized = self.mod.normalize_rgba_presentation_attrs(f'<svg><rect fill="{value}"/></svg>')
@@ -1455,12 +1455,12 @@ class ExportSvgStandaloneTests(unittest.TestCase):
           <title id="t">t</title><desc id="d">d</desc>
           <defs><pattern id="dots" width="2" height="2"
             patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r="0.5" fill="rgba(45,49,66,0.10)"/>
+            <circle cx="1" cy="1" r="0.5" fill="rgba(14,25,32,0.10)"/>
           </pattern></defs>
           <rect width="10" height="10" fill="url(#dots)" stroke="transparent"/>
         </svg></body></html>"""
         svg = self.mod.export_svg_document(html, Path("rgba-demo.html"))
-        self.assertIn('fill="#2d3142" fill-opacity="0.10"', svg)
+        self.assertIn('fill="#0e1920" fill-opacity="0.10"', svg)
         self.assertIn('stroke="none"', svg)
         self.assertIn('id="rgba-demo-dots"', svg)
 
@@ -1658,8 +1658,8 @@ class ExportSvgStandaloneTests(unittest.TestCase):
         # body. The body rule is dropped as chrome, so its color and
         # font-family must be bound to the SVG root instead.
         html = """<!DOCTYPE html><html><head><style>
-        body { padding: 40px; background: #f5f5f5; color: #2d3142;
-               font-family: 'Geist', sans-serif; }
+        body { padding: 40px; background: #ffffff; color: #0e1920;
+               font-family: 'Inter', sans-serif; }
         .edge { fill: none; }
         </style></head><body>
         <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -1669,8 +1669,8 @@ class ExportSvgStandaloneTests(unittest.TestCase):
           <text x="1" y="5">plain</text>
         </svg></body></html>"""
         css = embedded_css(self.mod.export_svg_document(html, Path("body-inherit.html")))
-        self.assertRegex(css, r"#body-inherit-root\s*\{[^}]*(?<![\w-])color:\s*#2d3142")
-        self.assertRegex(css, r"#body-inherit-root\s*\{[^}]*font-family:\s*'Geist', sans-serif")
+        self.assertRegex(css, r"#body-inherit-root\s*\{[^}]*(?<![\w-])color:\s*#0e1920")
+        self.assertRegex(css, r"#body-inherit-root\s*\{[^}]*font-family:\s*'Inter', sans-serif")
         for leaked in ("padding", "background", "40px", "#body-inherit-root body"):
             self.assertNotIn(leaked, css)
 

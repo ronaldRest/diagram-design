@@ -94,7 +94,7 @@ never bound here either.
 
 Usage:
     python3 scripts/verify-box-plot.py --all
-    python3 scripts/verify-box-plot.py skills/diagram-design/assets/example-box-plot.html
+    python3 scripts/verify-box-plot.py skills/diagrams-design-quind/assets/example-box-plot.html
 
 Exit: 0 clean, 1 findings, 2 usage.
 """
@@ -114,7 +114,7 @@ from pathlib import Path
 from html_comments import TokenizerComments
 
 ROOT = Path(__file__).resolve().parent.parent
-ASSET_DIR = ROOT / "skills/diagram-design/assets"
+ASSET_DIR = ROOT / "skills/diagrams-design-quind/assets"
 
 # One unit of a tag's inside, read as the HTML tokenizer does: a separator
 # (ASCII whitespace or `/`), or one attribute. A name runs to whitespace, `/`,
@@ -205,12 +205,12 @@ ATTR_RE = re.compile(
 DECLARES_Q1_RE = re.compile(r"\bdata-q1\s*=", re.IGNORECASE)
 TUKEY_K = 1.5
 ACCENT_RE = re.compile(
-    r"#(?:bf4520|f08a59)(?:[0-9a-f]{2})?\b|"
-    r"rgba?\(\s*191\s*,\s*69\s*,\s*32\b|"
-    r"rgba?\(\s*240\s*,\s*138\s*,\s*89\b",
+    r"#(?:cc3b10|ff8a5c)(?:[0-9a-f]{2})?\b|"
+    r"rgba?\(\s*204\s*,\s*59\s*,\s*16\b|"
+    r"rgba?\(\s*255\s*,\s*138\s*,\s*92\b",
     re.IGNORECASE,
 )
-ACCENT_RGBS = ((191, 69, 32), (240, 138, 89))
+ACCENT_RGBS = ((204, 59, 16), (255, 138, 92))
 HSL_RE = re.compile(
     r"hsla?\(\s*([-+]?[\d.]+)(deg|grad|rad|turn)?[\s,]+([\d.]+)%?[\s,]+([\d.]+)%?",
     re.IGNORECASE,

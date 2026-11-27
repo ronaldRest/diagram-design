@@ -39,7 +39,7 @@ occupies a column.
 
 Usage:
     python3 scripts/verify-waterfall.py --all
-    python3 scripts/verify-waterfall.py skills/diagram-design/assets/example-waterfall.html
+    python3 scripts/verify-waterfall.py skills/diagrams-design-quind/assets/example-waterfall.html
 
 Exit: 0 clean, 1 findings, 2 usage.
 """
@@ -58,7 +58,7 @@ from fractions import Fraction
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ASSET_DIR = ROOT / "skills/diagram-design/assets"
+ASSET_DIR = ROOT / "skills/diagrams-design-quind/assets"
 
 RECT_RE = re.compile(r"<rect\b(?P<attrs>[^>]*?)/?>", re.IGNORECASE)
 LINE_RE = re.compile(r"<line\b(?P<attrs>[^>]*?)/?>", re.IGNORECASE)
@@ -86,7 +86,7 @@ CARRY_SPAN_TOLERANCE = 2.0
 HORIZONTAL_TOLERANCE = 1e-9
 MAX_BARS = 8
 MAX_SUBTOTALS = 1
-ACCENT_STROKES = {"#bf4520", "#f08a59"}
+ACCENT_STROKES = {"#cc3b10", "#ff8a5c"}
 SIGN_CHARS = {"+": 1, "-": -1, "\u2212": -1}
 
 
@@ -534,8 +534,8 @@ def check_sign_treatment(bars: list[Bar], errors: list[str], paper: str) -> None
     # Only the two shipped themes have a documented pair; an unrecognised paper
     # falls through to the relative checks below rather than failing the file.
     THEME_TREATMENTS = {
-        "#2d3142": ("rgba(191,192,192,0.15)", "#bfc0c0"),
-        "#f5f5f5": ("rgba(79,93,117,0.15)", "#4f5d75"),
+        "#0e1920": ("rgba(155,169,178,0.15)", "#9ba9b2"),
+        "#ffffff": ("rgba(91,103,112,0.15)", "#5b6770"),
     }
     if paper in THEME_TREATMENTS:
         tint, stroke = THEME_TREATMENTS[paper]

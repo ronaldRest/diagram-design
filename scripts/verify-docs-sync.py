@@ -60,18 +60,18 @@ from pathlib import Path, PurePosixPath
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
-SKILL = ROOT / "skills/diagram-design/SKILL.md"
-GALLERY = ROOT / "skills/diagram-design/assets/index.html"
-ASSET_DIR = ROOT / "skills/diagram-design/assets"
+SKILL = ROOT / "skills/diagrams-design-quind/SKILL.md"
+GALLERY = ROOT / "skills/diagrams-design-quind/assets/index.html"
+ASSET_DIR = ROOT / "skills/diagrams-design-quind/assets"
 README = ROOT / "README.md"
-HIGH_LEVEL_REFERENCE = ROOT / "skills/diagram-design/references/type-high-level.md"
-ONBOARDING_REFERENCE = ROOT / "skills/diagram-design/references/onboarding.md"
-LINE_DARK_EXAMPLE = ROOT / "skills/diagram-design/assets/example-line-dark.html"
-LOOP_REFERENCE = ROOT / "skills/diagram-design/references/type-loop.md"
+HIGH_LEVEL_REFERENCE = ROOT / "skills/diagrams-design-quind/references/type-high-level.md"
+ONBOARDING_REFERENCE = ROOT / "skills/diagrams-design-quind/references/onboarding.md"
+LINE_DARK_EXAMPLE = ROOT / "skills/diagrams-design-quind/assets/example-line-dark.html"
+LOOP_REFERENCE = ROOT / "skills/diagrams-design-quind/references/type-loop.md"
 LOOP_EXAMPLE_GLOB = "example-loop*.html"
-OUTPUT_SPEC_REFERENCE = ROOT / "skills/diagram-design/references/output-spec.md"
+OUTPUT_SPEC_REFERENCE = ROOT / "skills/diagrams-design-quind/references/output-spec.md"
 VARIANTS = ("", "-dark", "-full")
-VISUAL_TYPE_COUNT = 52
+VISUAL_TYPE_COUNT = 54
 AGENT_SKILLS_DESCRIPTION_MAX = 1024
 PLUGIN_DESCRIPTION_MAX = 500
 # Types whose selection-table name differs from its description vocabulary.
@@ -107,7 +107,7 @@ ROUTING_SURFACES = {
 # the line that carries the list. The output-spec.md size table is the source.
 SIZE_PRESET_TABLE_HEADING = "## 2. Size"
 SIZE_PRESET_SURFACES = {
-    Path("skills/diagram-design/SKILL.md"): "| **Size** |",
+    Path("skills/diagrams-design-quind/SKILL.md"): "| **Size** |",
     Path("README.md"): "| **Size** |",
     Path("commands/import-drawio.md"): "- `--size` — any preset in `output-spec.md` §2:",
     Path("commands/import-mermaid.md"): "- `--size` — any preset in `output-spec.md` §2:",
@@ -209,11 +209,11 @@ def check_onboarding_user_verification(errors: list[str], markdown: str) -> None
 def check_line_dark_skin(errors: list[str], source: str) -> None:
     """The dark Line example must not silently drift back to the light skin."""
     required = (
-        "--color-paper:#2d3142",
-        "--color-ink:#f5f5f5",
-        "--color-muted:#bfc0c0",
-        "--color-accent:#f08a59",
-        '<rect width="100%" height="100%" fill="#2d3142"',
+        "--color-paper:#0e1920",
+        "--color-ink:#ffffff",
+        "--color-muted:#9ba9b2",
+        "--color-accent:#ff8a5c",
+        '<rect width="100%" height="100%" fill="#0e1920"',
     )
     for token in required:
         if token not in source:
@@ -606,9 +606,9 @@ def check_packaged_support_references(
 
 def check_routing_surfaces(errors: list[str], root: Path) -> None:
     for relative, reference_link in ROUTING_SURFACES.items():
-        reference = root / "skills/diagram-design" / reference_link
+        reference = root / "skills/diagrams-design-quind" / reference_link
         if not reference.is_file():
-            errors.append(f"routing source of truth is missing: skills/diagram-design/{reference_link}")
+            errors.append(f"routing source of truth is missing: skills/diagrams-design-quind/{reference_link}")
         path = root / relative
         if not path.is_file():
             errors.append(f"routing surface is missing: {relative.as_posix()}")
@@ -639,7 +639,7 @@ def surface_size_presets(markdown: str, marker: str) -> list[str] | None:
 
 
 def check_size_preset_surfaces(errors: list[str], root: Path) -> None:
-    spec = root / "skills/diagram-design/references/output-spec.md"
+    spec = root / "skills/diagrams-design-quind/references/output-spec.md"
     presets = spec_size_presets(spec.read_text(encoding="utf-8"))
     if not presets:
         errors.append("output-spec.md size table names no presets")
@@ -753,16 +753,16 @@ COUNT_SURFACES = (
     Path("commands/import-plantuml.md"),
     Path("README.md"),
     Path("CONTRIBUTING.md"),
-    Path("skills/diagram-design/SKILL.md"),
-    Path("skills/diagram-design/references/onboarding.md"),
-    Path("skills/diagram-design/references/semantic-patterns.md"),
+    Path("skills/diagrams-design-quind/SKILL.md"),
+    Path("skills/diagrams-design-quind/references/onboarding.md"),
+    Path("skills/diagrams-design-quind/references/semantic-patterns.md"),
 )
 
 
 # Reader-facing docs may state the count, but it must match the shipped type
 # references. Import commands stay count-free and route to SKILL.md instead.
 VERIFIED_COUNT_SURFACES = frozenset(p for p in COUNT_SURFACES if p.parts[0] != "commands")
-TYPE_REFERENCE_GLOB = "skills/diagram-design/references/type-*.md"
+TYPE_REFERENCE_GLOB = "skills/diagrams-design-quind/references/type-*.md"
 
 
 def shipped_type_count(root: Path) -> int:
@@ -865,8 +865,8 @@ TYPE_SIZE_SUFFIXES = (".html", ".svg", ".md")
 # Where diagram type lives. The gallery pages (index.html, icons.html) are site
 # chrome, not diagrams, so the type ramp does not govern them.
 TYPE_SIZE_SURFACES = (
-    ("skills/diagram-design/assets", ("example-", "template")),
-    ("skills/diagram-design/references", ("type-",)),
+    ("skills/diagrams-design-quind/assets", ("example-", "template")),
+    ("skills/diagrams-design-quind/references", ("type-",)),
 )
 
 
@@ -877,16 +877,16 @@ WEIGHT_RE = re.compile(r"""font-weight\s*[:=]\s*["']?(\d{3}|bold)""")
 # ride alongside it because a family value cannot carry one. Then how each class
 # is written in the spec tables. All of it is the spec's own wording.
 CLASS_TOKEN_FONT = {
-    "serif": ("Instrument Serif", ""),
-    "mono": ("Geist Mono", ""),
-    "sans": ("Geist", ""),
-    "sans-600": ("Geist", 'font-weight="600"'),
+    "serif": ("Poppins,Inter,system-ui,sans-serif", ""),
+    "mono": ("Roboto Mono", ""),
+    "sans": ("Inter", ""),
+    "sans-600": ("Inter", 'font-weight="600"'),
 }
 CLASS_NAMES = {
-    "serif": "Instrument Serif",
-    "mono": "Geist Mono",
-    "sans": "Geist regular",
-    "sans-600": "Geist 600",
+    "serif": "Poppins,Inter,system-ui,sans-serif",
+    "mono": "Roboto Mono",
+    "sans": "Inter regular",
+    "sans-600": "Inter 600",
     None: "unattributed",
 }
 
@@ -900,13 +900,13 @@ def role_token_names(role: str) -> set[str]:
 def font_classes(text: str) -> set[str]:
     """The ramp fonts a spec cell names. A cell may name more than one."""
     named = set()
-    if "Instrument Serif" in text:
+    if "Poppins,Inter,system-ui,sans-serif" in text:
         named.add("serif")
     if "Mono" in text or "monospace" in text:
         named.add("mono")
-    if "Geist 600" in text:
+    if "Inter 600" in text:
         named.add("sans-600")
-    if "Geist regular" in text or "Geist sans" in text or "sans-serif" in text:
+    if "Inter regular" in text or "Inter sans" in text or "sans-serif" in text:
         named.add("sans")
     return named
 
@@ -918,11 +918,11 @@ FONT_FAMILY_RE = re.compile(
 
 def family_class(value: str) -> str | None:
     """Which ramp family a single `font-family` value names, weight aside."""
-    if "Instrument Serif" in value:
+    if "Poppins,Inter,system-ui,sans-serif" in value:
         return "serif"
     if "Mono" in value or "monospace" in value:
         return "mono"
-    if "Geist" in value or "sans-serif" in value:
+    if "Inter" in value or "sans-serif" in value:
         return "sans"
     return None
 
@@ -940,7 +940,7 @@ def declared_families(context: str) -> set[str | None]:
 def element_class(context: str) -> str | None:
     """Which ramp font an element is set in, weight included.
 
-    Geist at 600 or heavier is the node-name voice; lighter Geist is annotation.
+    Inter at 600 or heavier is the node-name voice; lighter Inter is annotation.
     Keeping them apart is what stops a node name borrowing an annotation size.
     *context* may merge an element's tag with the CSS rules that style it, so two
     declarations naming different families read as unattributed rather than as
@@ -1478,7 +1478,7 @@ LEGACY_USE_RE = re.compile(r"^(?P<font>.*?)\s*(?P<size>\d+(?:\.\d+)?)$")
 def read_legacy_use(
     errors: list[str], name: str, cell: str
 ) -> tuple[str | None, float] | None:
-    """One `Geist 600 13` registry entry as the font class and size it names."""
+    """One `Inter 600 13` registry entry as the font class and size it names."""
     match = LEGACY_USE_RE.match(cell.strip())
     if not match:
         errors.append(
@@ -1575,14 +1575,14 @@ def check_manifest_descriptions(errors: list[str], root: Path) -> None:
                     )
 
 
-SKILL_PACKAGE = Path("skills/diagram-design")
+SKILL_PACKAGE = Path("skills/diagrams-design-quind")
 # Either quote style: the backreference ends the value at its own quote.
 FONT_LINK = re.compile(
     r"""href=(?P<quote>["'])(?P<url>(?:(?!(?P=quote)).)*fonts\.googleapis\.com(?:(?!(?P=quote)).)*)(?P=quote)"""
 )
 # Paths inside the skill package that carry the same css2 link as
 # assets/template.html. template-terminal.html is absent on purpose: the
-# terminal skin loads Geist Mono alone. SKILL.md carried a copy until the
+# terminal skin loads Roboto Mono alone. SKILL.md carried a copy until the
 # ADR 0004 split routed its typography to style-guide.md; a copy that comes
 # back is still checked, as an optional surface below.
 FONT_LINK_SURFACES = (
@@ -1713,7 +1713,7 @@ def title_stack_error(name: str, stack: str) -> str | None:
     faces = [face.strip().strip("'\"").casefold() for face in stack.split(",")]
     if "noto serif" not in faces:
         return (
-            f"{name} --font-serif lacks 'Noto Serif'; Instrument Serif carries "
+            f"{name} --font-serif lacks 'Noto Serif'; Poppins,Inter,system-ui,sans-serif carries "
             "no Cyrillic, so a Cyrillic title falls through to the next face"
         )
     ahead = [cjk[face] for face in faces[: faces.index("noto serif")] if face in cjk]
@@ -1729,7 +1729,7 @@ def title_stack_error(name: str, stack: str) -> str | None:
 def check_title_fallback_order(errors: list[str], root: Path) -> None:
     """Every template --font-serif must reach 'Noto Serif' before a CJK serif.
 
-    Instrument Serif has no Cyrillic, so a Cyrillic page title draws from the
+    Poppins,Inter,system-ui,sans-serif has no Cyrillic, so a Cyrillic page title draws from the
     next face in the stack. Google Fonts slices Cyrillic into every Noto Serif
     CJK face as well, so a stack that reaches one of them first renders the
     title in a Korean, Chinese, or Japanese design's Cyrillic instead of the

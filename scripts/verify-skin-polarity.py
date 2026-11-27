@@ -2,7 +2,7 @@
 """Verify a legend's tone claim against the ramp the file actually draws.
 
 Tone in this system is an `ink` opacity ramp, and `ink` is a *role*, not a
-color: it resolves to #2d3142 on light paper and #f5f5f5 on dark. One ramp,
+color: it resolves to #0e1920 on light paper and #ffffff on dark. One ramp,
 painted from one set of opacities, therefore composites **darker** as it
 strengthens in the light skin and **lighter** in the dark one. A legend key that
 names the ramp by lightness is consequently true in one variant and a lie in its
@@ -10,7 +10,7 @@ sibling - and both render perfectly, so nothing but a reader catches it.
 
 That is exactly how `Other continents - darker is larger` shipped on
 `example-treemap-dark.html`, whose ramp is white ink at 0.14 down to 0.04 over
-#2d3142 paper: larger cells are *lighter* there. `lint-skin.py` reads colors,
+#0e1920 paper: larger cells are *lighter* there. `lint-skin.py` reads colors,
 `verify-geometry.py` reads coordinates, `verify-treemap.py` reads areas against
 labels. None of them reads a claim against a ramp.
 
@@ -64,7 +64,7 @@ have been silently exempt.
 
 Usage:
     python3 scripts/verify-skin-polarity.py --all
-    python3 scripts/verify-skin-polarity.py skills/diagram-design/assets/example-treemap-dark.html
+    python3 scripts/verify-skin-polarity.py skills/diagrams-design-quind/assets/example-treemap-dark.html
 
 Exit: 0 clean, 1 findings, 2 usage.
 """
@@ -79,7 +79,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ASSET_DIR = ROOT / "skills/diagram-design/assets"
+ASSET_DIR = ROOT / "skills/diagrams-design-quind/assets"
 
 # Rank sources, most specific first. A ramp member must carry one of these; the
 # legend swatch that repeats the top of the ramp carries none, which is what
@@ -720,12 +720,12 @@ def main():
             "\n"
             "  # one variant, while editing it\n"
             "  python3 scripts/verify-skin-polarity.py \\\n"
-            "      skills/diagram-design/assets/example-treemap-dark.html\n"
+            "      skills/diagrams-design-quind/assets/example-treemap-dark.html\n"
             "\n"
             "  # a light/dark pair, to prove one sentence serves both\n"
             "  python3 scripts/verify-skin-polarity.py \\\n"
-            "      skills/diagram-design/assets/example-treemap.html \\\n"
-            "      skills/diagram-design/assets/example-treemap-dark.html\n"
+            "      skills/diagrams-design-quind/assets/example-treemap.html \\\n"
+            "      skills/diagrams-design-quind/assets/example-treemap-dark.html\n"
             "\n"
             "EXIT: 0 clean, 1 findings, 2 usage.\n"
         ),

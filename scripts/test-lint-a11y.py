@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 LINTER = ROOT / "scripts/lint-skin.py"
 BUILD_ICONS = ROOT / "scripts/build-icons.py"
-MOTION_TEMPLATE = ROOT / "skills/diagram-design/assets/template-motion.html"
+MOTION_TEMPLATE = ROOT / "skills/diagrams-design-quind/assets/template-motion.html"
 
 VALID_SVG = """\
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img"
@@ -431,7 +431,7 @@ def main() -> int:
             "cjk-name-stack",
             cjk_name_svg.replace(
                 "</svg>",
-                '<text font-family="\'Geist\', \'Hiragino Sans\', \'Noto Sans JP\', '
+                '<text font-family="\'Inter\', \'Hiragino Sans\', \'Noto Sans JP\', '
                 '\'Yu Gothic\', sans-serif">認証サービス</text>\n</svg>',
             ),
             directory,
@@ -443,7 +443,7 @@ def main() -> int:
             "cjk-mono-stack",
             cjk_mono_svg.replace(
                 "</svg>",
-                '<text font-family="\'Geist Mono\', \'Noto Sans Mono CJK JP\', '
+                '<text font-family="\'Roboto Mono\', \'Noto Sans Mono CJK JP\', '
                 'monospace">포트 443</text>\n</svg>',
             ),
             directory,
@@ -453,7 +453,7 @@ def main() -> int:
         )
         require_pass(
             "cjk-css-stack",
-            '<style>text { font-family: "Geist", "Hiragino Sans", "Noto Sans JP", '
+            '<style>text { font-family: "Inter", "Hiragino Sans", "Noto Sans JP", '
             '"Yu Gothic", sans-serif; }</style>\n' + cjk_css_svg,
             directory,
         )
@@ -474,7 +474,7 @@ def main() -> int:
             "kr-name-stack",
             kr_name_svg.replace(
                 "</svg>",
-                '<text font-family="\'Geist\', \'Noto Sans KR\', \'Apple SD Gothic Neo\', '
+                '<text font-family="\'Inter\', \'Noto Sans KR\', \'Apple SD Gothic Neo\', '
                 '\'Malgun Gothic\', sans-serif">인증 서비스</text>\n</svg>',
             ),
             directory,
@@ -486,7 +486,7 @@ def main() -> int:
             "kr-mono-stack",
             kr_mono_svg.replace(
                 "</svg>",
-                '<text font-family="\'Geist Mono\', \'Noto Sans Mono CJK KR\', '
+                '<text font-family="\'Roboto Mono\', \'Noto Sans Mono CJK KR\', '
                 'monospace">포트 443</text>\n</svg>',
             ),
             directory,
@@ -496,7 +496,7 @@ def main() -> int:
         )
         require_pass(
             "kr-css-stack",
-            '<style>text { font-family: "Geist", "Noto Sans KR", "Apple SD Gothic Neo", '
+            '<style>text { font-family: "Inter", "Noto Sans KR", "Apple SD Gothic Neo", '
             '"Malgun Gothic", sans-serif; }</style>\n' + kr_css_svg,
             directory,
         )
@@ -507,7 +507,7 @@ def main() -> int:
             "zh-name-stack",
             zh_name_svg.replace(
                 "</svg>",
-                "<text font-family=\"'Geist', 'PingFang SC', 'Noto Sans SC', "
+                "<text font-family=\"'Inter', 'PingFang SC', 'Noto Sans SC', "
                 "'Microsoft YaHei', sans-serif\">\u8ba4\u8bc1\u670d\u52a1</text>\n</svg>",
             ),
             directory,
@@ -519,7 +519,7 @@ def main() -> int:
             "zh-mono-stack",
             zh_mono_svg.replace(
                 "</svg>",
-                "<text font-family=\"'Geist Mono', 'Noto Sans Mono CJK SC', "
+                "<text font-family=\"'Roboto Mono', 'Noto Sans Mono CJK SC', "
                 "monospace\">\u7aef\u53e3 443</text>\n</svg>",
             ),
             directory,
@@ -529,7 +529,7 @@ def main() -> int:
         )
         require_pass(
             "zh-css-stack",
-            '<style>text { font-family: "Geist", "PingFang SC", "Noto Sans SC", '
+            '<style>text { font-family: "Inter", "PingFang SC", "Noto Sans SC", '
             '"Microsoft YaHei", sans-serif; }</style>\n' + zh_css_svg,
             directory,
         )
@@ -540,7 +540,7 @@ def main() -> int:
             "zh-tc-stack",
             zh_tc_svg.replace(
                 "</svg>",
-                "<text font-family=\"'Geist', 'PingFang TC', 'Noto Sans TC', "
+                "<text font-family=\"'Inter', 'PingFang TC', 'Noto Sans TC', "
                 "'Microsoft JhengHei', sans-serif\">\u8a8d\u8b49\u670d\u52d9</text>\n</svg>",
             ),
             directory,
@@ -587,17 +587,17 @@ def main() -> int:
 
         project = directory / "baseline-project"
         (project / "scripts").mkdir(parents=True)
-        (project / "skills/diagram-design/assets").mkdir(parents=True)
-        (project / "skills/diagram-design/references").mkdir(parents=True)
+        (project / "skills/diagrams-design-quind/assets").mkdir(parents=True)
+        (project / "skills/diagrams-design-quind/references").mkdir(parents=True)
         shutil.copy2(LINTER, project / "scripts/lint-skin.py")
         shutil.copy2(
-            ROOT / "skills/diagram-design/references/style-guide.md",
-            project / "skills/diagram-design/references/style-guide.md",
+            ROOT / "skills/diagrams-design-quind/references/style-guide.md",
+            project / "skills/diagrams-design-quind/references/style-guide.md",
         )
-        project_style = project / "skills/diagram-design/references/style-guide.md"
+        project_style = project / "skills/diagrams-design-quind/references/style-guide.md"
         project_style.write_text(
             project_style.read_text(encoding="utf-8").replace(
-                "| `title` | Instrument Serif |",
+                "| `title` | Poppins,Inter,system-ui,sans-serif |",
                 "| `title` | Inter Tight |",
                 1,
             ),
@@ -625,13 +625,13 @@ def main() -> int:
         (project / "scripts/lint-skin-baseline.txt").write_text(
             "example-baseline.html\n", encoding="utf-8"
         )
-        (project / "skills/diagram-design/assets/example-baseline.html").write_text(
+        (project / "skills/diagrams-design-quind/assets/example-baseline.html").write_text(
             '<svg style="color: #123456"></svg>\n', encoding="utf-8"
         )
         template_svg = VALID_SVG.replace(
             "fixture-title", "[diagram-slug]-title"
         ).replace("fixture-desc", "[diagram-slug]-desc")
-        (project / "skills/diagram-design/assets/template.html").write_text(
+        (project / "skills/diagrams-design-quind/assets/template.html").write_text(
             '<img src="https://evil.example/template.png">\n' + template_svg,
             encoding="utf-8",
         )

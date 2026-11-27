@@ -41,7 +41,7 @@ WHAT THIS DOES NOT CHECK, deliberately:
 
 Usage:
     python3 scripts/verify-heatmap.py --all
-    python3 scripts/verify-heatmap.py skills/diagram-design/assets/example-heatmap.html
+    python3 scripts/verify-heatmap.py skills/diagrams-design-quind/assets/example-heatmap.html
 
 Exit: 0 clean, 1 findings, 2 usage.
 """
@@ -56,7 +56,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ASSET_DIR = ROOT / "skills/diagram-design/assets"
+ASSET_DIR = ROOT / "skills/diagrams-design-quind/assets"
 
 # A ">" inside a quoted attribute is text, not the end of the tag. Ending the
 # scan there drops the cell or axis label that follows it.
@@ -138,14 +138,14 @@ def _parse_color(
 
     For rgba() values with alpha < 1, blend the color against the actual canvas
     underlay rather than assuming the light paper background. In dark heatmaps, the
-    underlay is the dark paper color (#2d3142), not #f5f5f5.
+    underlay is the dark paper color (#0e1920), not #ffffff.
     """
     value = color.strip()
     if not value:
         return None
 
     if underlay is None:
-        underlay = (245, 245, 245)
+        underlay = (255, 255, 255)
 
     def blend(rgb: tuple[int, int, int], alpha: float) -> tuple[int, int, int]:
         if alpha >= 1.0:
@@ -504,7 +504,7 @@ def check_file(path: Path) -> list[str]:
                 canvas_underlay = parsed
                 break
     if canvas_underlay is None:
-        canvas_underlay = (245, 245, 245)
+        canvas_underlay = (255, 255, 255)
 
     text_labels = parse_text_labels(source, geometry_errors)
     errors.extend(f"{path.name}: {finding}" for finding in geometry_errors)

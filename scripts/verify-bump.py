@@ -60,7 +60,7 @@ WHAT THIS DOES NOT CHECK, deliberately:
 
 Usage:
     python3 scripts/verify-bump.py --all
-    python3 scripts/verify-bump.py skills/diagram-design/assets/example-bump.html
+    python3 scripts/verify-bump.py skills/diagrams-design-quind/assets/example-bump.html
 
 Exit: 0 clean, 1 findings, 2 usage.
 """
@@ -77,7 +77,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ASSET_DIR = ROOT / "skills/diagram-design/assets"
+ASSET_DIR = ROOT / "skills/diagrams-design-quind/assets"
 
 PATH_RE = re.compile(r"<path\b(?P<attrs>[^>]*?)/?>", re.IGNORECASE)
 CIRCLE_RE = re.compile(r"<circle\b(?P<attrs>[^>]*?)/?>", re.IGNORECASE)
@@ -123,7 +123,7 @@ LABEL_ROW_OFFSET = 3.5    # px, a label baseline below its vertex, per the refer
 MIN_SNAPSHOTS, MAX_SNAPSHOTS = 3, 6
 MIN_SERIES, MAX_SERIES = 4, 8
 FOCAL_WIDTH, PLAIN_WIDTH = 2.4, 1.2
-ACCENTS = {"#bf4520", "#f08a59"}   # light and dark skin accent tokens
+ACCENTS = {"#cc3b10", "#ff8a5c"}   # light and dark skin accent tokens
 
 
 # Quoted CSS data is not a declaration: `--note: "a;transform:b"` moves nothing (#431).
